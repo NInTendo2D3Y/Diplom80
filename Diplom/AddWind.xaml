@@ -1,0 +1,39 @@
+﻿<Window x:Class="Diplom.AddWind"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplom"
+        mc:Ignorable="d"
+        Title="AddWind" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Grid.Row="1" x:Name="AddGrid">
+            <StackPanel  x:Name="spAddProduct">
+            <Label Content="Артикул"/>
+            <TextBox x:Name="tbArtikul" Text="{Binding Artikul}"/>
+            <Label Content="Название" />
+            <TextBox x:Name="tbNameProduct" Text="{Binding NameProduct}"/>
+            <Label Content="Поставщик" />
+            <ComboBox SelectedItem="Providers" Name="ProviderCombo"  DisplayMemberPath="ProvidersName" ItemsSource="{Binding Providers}" ></ComboBox>
+            <Label Content="Срок Годности" />
+            <Calendar x:Name="ExpirationDate" SelectedDate="{Binding ExpirationDate}" />
+            <Label Content="Количество" />
+            <TextBox x:Name="tbQuantity" Text="{Binding quantity}"/>
+            <Label Content="Единица Измерения" />
+            <ComboBox SelectedItem="Unit" Name="UnitCombo"  DisplayMemberPath="unit1" ItemsSource="{Binding Units}"></ComboBox>
+            </StackPanel>
+        </Grid>
+
+        <Button Content="Добавить Продукт"  Click="Button_Click" Grid.Column="2" Height="30" Margin="5" VerticalAlignment="Bottom"/>
+
+
+
+
+    </Grid>
+</Window>

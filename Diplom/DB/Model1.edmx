@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DiplomModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActionProduct">
+          <Key>
+            <PropertyRef Name="artikul" />
+            <PropertyRef Name="DateAction" />
+          </Key>
+          <Property Name="artikul" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Provide" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ProductQuantity" Type="int" Nullable="false" />
+          <Property Name="ProductUnit" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="DateAction" Type="date" Nullable="false" />
+          <Property Name="StatusProduct" Type="varchar" MaxLength="7" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Artikul" />
+          </Key>
+          <Property Name="Artikul" Type="int" Nullable="false" />
+          <Property Name="NameProduct" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Provider" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DateOfDelivery" Type="date" Nullable="false" />
+          <Property Name="ExpirationDate" Type="date" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="UnitProduct" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Providers">
+          <Key>
+            <PropertyRef Name="ProvidersName" />
+          </Key>
+          <Property Name="ProvidersName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Adress" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="status" />
+          </Key>
+          <Property Name="status" Type="varchar" MaxLength="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="unit" />
+          </Key>
+          <Property Name="unit" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <Association Name="Product_fk0">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ActionProduct" Type="Self.ActionProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Artikul" />
+            </Principal>
+            <Dependent Role="ActionProduct">
+              <PropertyRef Name="artikul" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_fk1">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="ActionProduct" Type="Self.ActionProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="status" />
+            </Principal>
+            <Dependent Role="ActionProduct">
+              <PropertyRef Name="StatusProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_fk2">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="unit" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UnitProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_fk3">
+          <End Role="Providers" Type="Self.Providers" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Providers">
+              <PropertyRef Name="ProvidersName" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DiplomModelContainer">
+          <EntitySet Name="ActionProduct" EntityType="Self.ActionProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Providers" EntityType="Self.Providers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Product_fk0" Association="Self.Product_fk0">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ActionProduct" EntitySet="ActionProduct" />
+          </AssociationSet>
+          <AssociationSet Name="Product_fk1" Association="Self.Product_fk1">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="ActionProduct" EntitySet="ActionProduct" />
+          </AssociationSet>
+          <AssociationSet Name="Product_fk2" Association="Self.Product_fk2">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="Product_fk3" Association="Self.Product_fk3">
+            <End Role="Providers" EntitySet="Providers" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DiplomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ActionProduct">
+          <Key>
+            <PropertyRef Name="artikul" />
+            <PropertyRef Name="DateAction" />
+          </Key>
+          <Property Name="artikul" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Provide" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductQuantity" Type="Int32" Nullable="false" />
+          <Property Name="ProductUnit" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateAction" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StatusProduct" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="Self.Product_fk0" FromRole="ActionProduct" ToRole="Product" />
+          <NavigationProperty Name="Status" Relationship="Self.Product_fk1" FromRole="ActionProduct" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Artikul" />
+          </Key>
+          <Property Name="Artikul" Type="Int32" Nullable="false" />
+          <Property Name="NameProduct" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Provider" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateOfDelivery" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitProduct" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ActionProduct" Relationship="Self.Product_fk0" FromRole="Product" ToRole="ActionProduct" />
+          <NavigationProperty Name="Unit" Relationship="Self.Product_fk2" FromRole="Product" ToRole="Unit" />
+          <NavigationProperty Name="Providers" Relationship="Self.Product_fk3" FromRole="Product" ToRole="Providers" />
+        </EntityType>
+        <EntityType Name="Providers">
+          <Key>
+            <PropertyRef Name="ProvidersName" />
+          </Key>
+          <Property Name="ProvidersName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.Product_fk3" FromRole="Providers" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="status1" />
+          </Key>
+          <Property Name="status1" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ActionProduct" Relationship="Self.Product_fk1" FromRole="Status" ToRole="ActionProduct" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="unit1" />
+          </Key>
+          <Property Name="unit1" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.Product_fk2" FromRole="Unit" ToRole="Product" />
+        </EntityType>
+        <Association Name="Product_fk0">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ActionProduct" Type="Self.ActionProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Artikul" />
+            </Principal>
+            <Dependent Role="ActionProduct">
+              <PropertyRef Name="artikul" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_fk1">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="ActionProduct" Type="Self.ActionProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="status1" />
+            </Principal>
+            <Dependent Role="ActionProduct">
+              <PropertyRef Name="StatusProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_fk2">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="unit1" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UnitProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Product_fk3">
+          <End Role="Providers" Type="Self.Providers" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Providers">
+              <PropertyRef Name="ProvidersName" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Provider" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DiplomEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActionProducts" EntityType="Self.ActionProduct" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Providers" EntityType="Self.Providers" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Units" EntityType="Self.Unit" />
+          <AssociationSet Name="Product_fk0" Association="Self.Product_fk0">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ActionProduct" EntitySet="ActionProducts" />
+          </AssociationSet>
+          <AssociationSet Name="Product_fk1" Association="Self.Product_fk1">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="ActionProduct" EntitySet="ActionProducts" />
+          </AssociationSet>
+          <AssociationSet Name="Product_fk2" Association="Self.Product_fk2">
+            <End Role="Unit" EntitySet="Units" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="Product_fk3" Association="Self.Product_fk3">
+            <End Role="Providers" EntitySet="Providers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DiplomModelContainer" CdmEntityContainer="DiplomEntities">
+          <EntitySetMapping Name="ActionProducts">
+            <EntityTypeMapping TypeName="DiplomModel.ActionProduct">
+              <MappingFragment StoreEntitySet="ActionProduct">
+                <ScalarProperty Name="artikul" ColumnName="artikul" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Provide" ColumnName="Provide" />
+                <ScalarProperty Name="ProductQuantity" ColumnName="ProductQuantity" />
+                <ScalarProperty Name="ProductUnit" ColumnName="ProductUnit" />
+                <ScalarProperty Name="DateAction" ColumnName="DateAction" />
+                <ScalarProperty Name="StatusProduct" ColumnName="StatusProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="DiplomModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Artikul" ColumnName="Artikul" />
+                <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+                <ScalarProperty Name="DateOfDelivery" ColumnName="DateOfDelivery" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="UnitProduct" ColumnName="UnitProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Providers">
+            <EntityTypeMapping TypeName="DiplomModel.Providers">
+              <MappingFragment StoreEntitySet="Providers">
+                <ScalarProperty Name="ProvidersName" ColumnName="ProvidersName" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="DiplomModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="status1" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="DiplomModel.Unit">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="unit1" ColumnName="unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
